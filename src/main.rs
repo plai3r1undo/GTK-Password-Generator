@@ -1,9 +1,69 @@
 use rand::{thread_rng, Rng};
+use gtk4::{prelude::*, Orientation, SpinButton};
+use gtk4::{Application, ApplicationWindow, Button, Label, Box};
+
+
 
 fn main() {
+   
+    const MARGINS: i32= 12;
+    
+
+    let app = Application::builder()
+        .application_id("com.password.generator")
+        .build();
+    app.connect_activate(build_ui);
+    app.run();
+
+
     let _pass = generate_password(7, false);
     println!("pass: {}", _pass);
+
+
 }
+
+
+fn build_ui(app: &Application) {
+    const MARGINS: i32= 12;
+
+    let label = Label::builder()
+        .label("your password")
+        .margin_top(MARGINS)
+        .margin_bottom(MARGINS)
+        .margin_start(MARGINS)
+        .margin_end(MARGINS)
+        .build();
+
+    let generate = Button::builder()
+        .label("generate password")
+        .margin_top(MARGINS)
+        .margin_start(MARGINS)
+        .margin_end(MARGINS)
+        .margin_bottom(MARGINS)
+        .build();
+    
+    let spin_button = SpinButton::new(
+        Some(&gtk4::Adjustment::new(0.0,0.0,100.0,1.0,10.0,0.0)),
+        1.0,
+        1
+    );
+     
+
+
+    let content = Box::new(Orientation::Vertical, 0);
+    content.append(&label);
+    content.append(&spin_button);
+    content.append(&generate);
+
+    let window = ApplicationWindow::builder()
+        .title("password generator")
+        .application(app)
+        .child(&content)
+        .build();
+   
+    window.show();
+}
+
 
  
 fn generate_password(length: usize, numbers: bool) -> String {
