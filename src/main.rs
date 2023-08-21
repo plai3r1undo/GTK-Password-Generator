@@ -1,13 +1,13 @@
 use rand::{thread_rng, Rng};
 use gtk4::{prelude::*, Orientation, SpinButton};
-use gtk4::{Application, ApplicationWindow, Button, Label, Box};
-
+use gtk4::{Application, ApplicationWindow, Button, Label, Box, ToggleButton};
 
 
 fn main() {
    
-    const MARGINS: i32= 12;
-    
+    let _pass = generate_password(7, false);
+    println!("pass: {}", _pass);
+
 
     let app = Application::builder()
         .application_id("com.password.generator")
@@ -16,15 +16,13 @@ fn main() {
     app.run();
 
 
-    let _pass = generate_password(7, false);
-    println!("pass: {}", _pass);
-
-
-}
-
+   }
 
 fn build_ui(app: &Application) {
     const MARGINS: i32= 12;
+    let mut numbers = false;
+
+    let mut length: f32;
 
     let label = Label::builder()
         .label("your password")
@@ -48,10 +46,17 @@ fn build_ui(app: &Application) {
         1
     );
      
-
+    let toggle_button = ToggleButton::builder()
+        .label("Numbers")
+        .margin_top(MARGINS)
+        .margin_start(MARGINS)
+        .margin_end(MARGINS)
+        .margin_bottom(MARGINS)
+        .build();
 
     let content = Box::new(Orientation::Vertical, 0);
     content.append(&label);
+    content.append(&toggle_button);
     content.append(&spin_button);
     content.append(&generate);
 
@@ -60,11 +65,20 @@ fn build_ui(app: &Application) {
         .application(app)
         .child(&content)
         .build();
-   
+
+    toggle_button.connect_toggled(move |toggle_button|{
+        let new_state = ToggleButtonExt::is_active(toggle_button);
+    });
+        
+    
+
+    generate.connect_clicked(|_| {
+    });
     window.show();
+
+    
+    
 }
-
-
  
 fn generate_password(length: usize, numbers: bool) -> String {
     const NUM: usize = 3;
