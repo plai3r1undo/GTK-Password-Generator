@@ -1,6 +1,5 @@
 use rand::{thread_rng, Rng};
-use gtk4::{prelude::*, Orientation, SpinButton};
-use gtk4::{Application, ApplicationWindow, Button, Label, Box, ToggleButton};
+use gtk4::{prelude::*, Orientation, SpinButton,Application, ApplicationWindow, Button, Label, Box, ToggleButton};
 use arboard::Clipboard; 
 
 
@@ -65,11 +64,7 @@ fn build_ui(app: &Application) {
         .child(&content)
         .build();
 
-    toggle_button.connect_toggled(move |toggle_button|{
-        
-    });
-   
-    
+       
     
     let cloned_spin = spin_button.clone();
 
@@ -83,11 +78,6 @@ fn build_ui(app: &Application) {
         label.set_text(&password);
         let mut clipboard = Clipboard::new().unwrap();
         clipboard.set_text(password).unwrap();
-
-
-
-
-
     });
     window.show();
 }
