@@ -23,7 +23,7 @@ fn build_ui(app: &Application) {
     const MARGINS: i32= 12;
     
     let label = Label::builder()
-        .label("your password")
+        .label("Your Password Here")
         .margin_top(MARGINS)
         .margin_bottom(MARGINS)
         .margin_start(MARGINS)
@@ -31,7 +31,7 @@ fn build_ui(app: &Application) {
         .build();
 
     let generate = Button::builder()
-        .label("generate password")
+        .label("Generate Password")
         .margin_top(MARGINS)
         .margin_start(MARGINS)
         .margin_end(MARGINS)
@@ -59,7 +59,7 @@ fn build_ui(app: &Application) {
     content.append(&generate);
 
     let window = ApplicationWindow::builder()
-        .title("password generator")
+        .title("Password Generator")
         .application(app)
         .child(&content)
         .build();
@@ -85,7 +85,7 @@ fn build_ui(app: &Application) {
 fn generate_password(length: usize, numbers: bool) -> String {
     const NUM: usize = 3;
     if numbers && length < 3{
-        return "invalid length".to_string();
+        return "!!invalid length!!".to_string();
     }
     let mut rng = thread_rng();
     let alphabet_chars: &[u8] = b"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
