@@ -6,6 +6,6 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-clap = "4.3.23"
+arboard = "3.2.0"
 gtk4 = {version = "0.7.2", package = "gtk4"} 
 rand = "0.8.5"
